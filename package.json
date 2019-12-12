@@ -1,0 +1,17 @@
+{
+    "dependencies": {
+        "@types/node": "^12.12.14",
+        "commander": "^4.0.1"
+    },
+    "devDependencies": {
+        "typescript": "3.7.2"
+    },
+    "scripts": {
+        "build": "tsc",
+        "sim": "node ./dist/index.js",
+        "start": "node ./dist/index.js"
+    },
+    "engines": {
+        "node": ">=8"
+    }
+}
