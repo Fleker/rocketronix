@@ -8,7 +8,7 @@ export const MESSAGE_MAP: {[alias: string]: Message} = {
     needAck: false,
     dataSize: 0,
     pageNumber: 0,
-    integrityCode: 0,
+    integrityCode: 6,
     data: Uint8Array.from([])
   },
   HEARTBEAT_POWER: {
@@ -17,7 +17,7 @@ export const MESSAGE_MAP: {[alias: string]: Message} = {
     needAck: false,
     dataSize: 0,
     pageNumber: 0,
-    integrityCode: 0,
+    integrityCode: 10,
     data: Uint8Array.from([])
   },
   HEARTBEAT_GNC: {
@@ -26,7 +26,7 @@ export const MESSAGE_MAP: {[alias: string]: Message} = {
     needAck: false,
     dataSize: 0,
     pageNumber: 0,
-    integrityCode: 0,
+    integrityCode: 18,
     data: Uint8Array.from([])
   },
   HEARTBEAT_PAY: {
@@ -35,7 +35,12 @@ export const MESSAGE_MAP: {[alias: string]: Message} = {
     needAck: false,
     dataSize: 0,
     pageNumber: 0,
-    integrityCode: 0,
+    integrityCode: 34,
     data: Uint8Array.from([])
   },
+}
+
+export const hash = (deviceAddress: Device, messageId: MessageType, data: Uint8Array) => {
+  const sumOfData = data.reduce((prev, current) => prev + current)
+  return ((deviceAddress << 2) | (messageId << 1) | sumOfData) & 0xFF
 }

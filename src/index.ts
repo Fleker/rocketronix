@@ -1,9 +1,8 @@
 import * as program from 'commander'
 import { serialization, deserialization } from './serialization';
-import { MESSAGE_MAP } from './messages'
+import { MESSAGE_MAP, hash } from './messages'
 
-// we'll probably add more commands, like options for deploying
-// fulfillment alone vs NLU vs NLU & fulfillment
+// we'll probably add more commands
 program.version('0.1.0');
 
 program
@@ -33,6 +32,19 @@ program
       }
     }
   });
+
+program
+  .command('hash')
+  .alias('h')
+  .description('message metadata to hash')
+  .option('--device <device>', 'Device address')
+  .option('--message <message>', 'Type of message')
+  .option('--bin <bin>', 'Numerical data')
+  .action((cmd) => {
+    const data = Uint8Array.from(cmd.bin.split(','))
+    console.log(cmd.device, cmd.message, data)
+    console.log(hash(cmd.device, cmd.message, data))
+  })
 
 // allow commander to parse `process.argv`
 program.parse(process.argv)
